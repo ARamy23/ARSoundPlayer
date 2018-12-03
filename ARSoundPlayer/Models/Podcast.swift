@@ -41,20 +41,4 @@ struct Podcast: Codable {
         case feedURL = "feedUrl"
         case artworkUrl30, artworkUrl60, artworkUrl100, collectionPrice, trackPrice, releaseDate, collectionExplicitness, trackExplicitness, discCount, discNumber, trackCount, trackNumber, trackTimeMillis, country, currency, primaryGenreName, isStreamable
     }
-    
-//    func encode(with aCoder: NSCoder) {
-//        aCoder.encode(trackName ?? "", forKey: "trackNameKey")
-//        aCoder.encode(artistName ?? "", forKey: "artistNameKey")
-//        aCoder.encode(artworkUrl100 ?? "", forKey: "artworkUrl100Key")
-//        aCoder.encode(trackID ?? 0, forKey: "trackIDKey")
-//        aCoder.encode(feedURL ?? "", forKey: "feedURLKey")
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        self.trackName = aDecoder.decodeObject(forKey: "trackNameKey") as? String
-//        self.artistName = aDecoder.decodeObject(forKey: "artistNameKey") as? String
-//        self.artworkUrl100 = aDecoder.decodeObject(forKey: "artworkUrl100Key") as? String
-//        self.trackID = aDecoder.decodeInteger(forKey: "trackIDKey")
-//        self.feedURL = aDecoder.decodeObject(forKey: "feedURLKey") as? String
-//    }
 }
