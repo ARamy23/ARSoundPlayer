@@ -1,0 +1,6 @@
+framework module Pods_ARSoundPlayerTests {
+  umbrella header "Pods-ARSoundPlayerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
