@@ -25,6 +25,9 @@ s.source = { :git => "https://github.com/ARamy23/ARSoundPlayer.git",
 
 # 7
 s.framework = "UIKit"
+s.framework = "AVKit"
+s.framework = "MediaPlayer"
+
 s.dependency 'SwifterSwift'
 s.dependency 'SVProgressHUD'
 

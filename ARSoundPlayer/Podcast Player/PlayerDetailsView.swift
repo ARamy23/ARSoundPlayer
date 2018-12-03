@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 import MediaPlayer
 import SVProgressHUD
+import SwifterSwift
 
 public class PlayerDetailsView: UIView {
     
@@ -68,7 +69,7 @@ public class PlayerDetailsView: UIView {
     //MARK:- IB Methods
     
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
         observePlayerCurrentTime()
         observeStartingOfEpisode()

@@ -17,12 +17,7 @@
 		E2A3FAE321B5909900EF9B91 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAD621B5909800EF9B91 /* PlayerDetailsView.swift */; };
 		E2A3FAE421B5909900EF9B91 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAD821B5909800EF9B91 /* Podcast.swift */; };
 		E2A3FAE521B5909900EF9B91 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAD921B5909800EF9B91 /* Episode.swift */; };
-		E2A3FAE621B5909900EF9B91 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FADB21B5909900EF9B91 /* UIColor+Extension.swift */; };
 		E2A3FAE721B5909900EF9B91 /* AVKit + CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FADC21B5909900EF9B91 /* AVKit + CMTime.swift */; };
-		E2A3FAE821B5909900EF9B91 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FADD21B5909900EF9B91 /* Notification.swift */; };
-		E2A3FAE921B5909900EF9B91 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FADE21B5909900EF9B91 /* UserDefaults.swift */; };
-		E2A3FAEA21B5909900EF9B91 /* UICollectionView+EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FADF21B5909900EF9B91 /* UICollectionView+EmptyState.swift */; };
-		E2A3FAEB21B5909900EF9B91 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAE021B5909900EF9B91 /* UIApplication.swift */; };
 		E2A3FAED21B594C800EF9B91 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E2A3FAEC21B594C800EF9B91 /* LICENSE */; };
 /* End PBXBuildFile section */
 
@@ -54,12 +49,7 @@
 		E2A3FAD621B5909800EF9B91 /* PlayerDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
 		E2A3FAD821B5909800EF9B91 /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		E2A3FAD921B5909800EF9B91 /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
-		E2A3FADB21B5909900EF9B91 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		E2A3FADC21B5909900EF9B91 /* AVKit + CMTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVKit + CMTime.swift"; sourceTree = "<group>"; };
-		E2A3FADD21B5909900EF9B91 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
-		E2A3FADE21B5909900EF9B91 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
-		E2A3FADF21B5909900EF9B91 /* UICollectionView+EmptyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+EmptyState.swift"; sourceTree = "<group>"; };
-		E2A3FAE021B5909900EF9B91 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		E2A3FAEC21B594C800EF9B91 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,12 +158,7 @@
 		E2A3FADA21B5909900EF9B91 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E2A3FADB21B5909900EF9B91 /* UIColor+Extension.swift */,
 				E2A3FADC21B5909900EF9B91 /* AVKit + CMTime.swift */,
-				E2A3FADD21B5909900EF9B91 /* Notification.swift */,
-				E2A3FADE21B5909900EF9B91 /* UserDefaults.swift */,
-				E2A3FADF21B5909900EF9B91 /* UICollectionView+EmptyState.swift */,
-				E2A3FAE021B5909900EF9B91 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -351,15 +336,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2A3FAEB21B5909900EF9B91 /* UIApplication.swift in Sources */,
 				E2A3FAE421B5909900EF9B91 /* Podcast.swift in Sources */,
 				E2A3FAE521B5909900EF9B91 /* Episode.swift in Sources */,
-				E2A3FAE821B5909900EF9B91 /* Notification.swift in Sources */,
 				E2A3FAE721B5909900EF9B91 /* AVKit + CMTime.swift in Sources */,
-				E2A3FAEA21B5909900EF9B91 /* UICollectionView+EmptyState.swift in Sources */,
 				E2A3FAE321B5909900EF9B91 /* PlayerDetailsView.swift in Sources */,
-				E2A3FAE921B5909900EF9B91 /* UserDefaults.swift in Sources */,
-				E2A3FAE621B5909900EF9B91 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
