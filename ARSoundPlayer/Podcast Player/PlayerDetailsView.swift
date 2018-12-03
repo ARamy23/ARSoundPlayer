@@ -59,7 +59,7 @@ public class PlayerDetailsView: UIView {
     
     var panGesture: UIPanGestureRecognizer!
     
-    var parentViewController: UIViewController?
+    var parentVC: UIViewController?
     var parentView: UIView?
     
     var maximizedTopAnchorConstraint: NSLayoutConstraint!
@@ -474,7 +474,7 @@ public class PlayerDetailsView: UIView {
 extension PlayerDetailsView {
     public func setupPlayerDetailsView(in viewController: UIViewController, below subview: UIView)
     {
-        parentViewController = viewController
+        parentVC = viewController
         parentView = subview
         
         viewController.view.insertSubview(self, belowSubview: subview)
@@ -496,11 +496,11 @@ extension PlayerDetailsView {
     public func minimizePlayerDetails()
     {
         maximizedTopAnchorConstraint.isActive = false
-        bottomAnchorConstraint.constant = parentViewController.view.height
+        bottomAnchorConstraint.constant = parentVC?.view.height ?? 0.0
         minimizedTopAnchorConstraint.isActive = true
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.parentViewController?.view.layoutIfNeeded()
+            self.parentVC?.view.layoutIfNeeded()
             self.parentView?.transform = .identity
             self.maximizedPlayerStackView.alpha = 0
             self.minimizedPlayerView.alpha = 1
@@ -515,7 +515,7 @@ extension PlayerDetailsView {
         bottomAnchorConstraint.constant = 0
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.parentViewController?.view.layoutIfNeeded()
+            self.parentVC?.view.layoutIfNeeded()
             self.parentView?.transform = CGAffineTransform(translationX: 0, y: 100)
             self.maximizedPlayerStackView.alpha = 1
             self.minimizedPlayerView.alpha = 0
