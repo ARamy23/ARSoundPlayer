@@ -1,9 +1,9 @@
 //
 //  PlayerDetailsView.swift
-//  PodcastsCourseLBTA
+//  ARSoundPlayer
 //
-//  Created by Brian Voong on 2/28/18.
-//  Copyright © 2018 Brian Voong. All rights reserved.
+//  Created by Ahmed Ramy on 2/28/18.
+//  Copyright © 2018 Ahmed Ramy. All rights reserved.
 //
 
 import UIKit
@@ -62,10 +62,14 @@ public class PlayerDetailsView: UIView {
     
     var parentVC: UIViewController?
     var parentView: UIView?
+    var podBundle: Bundle?
     
     var maximizedTopAnchorConstraint: NSLayoutConstraint!
     var minimizedTopAnchorConstraint: NSLayoutConstraint!
     var bottomAnchorConstraint: NSLayoutConstraint!
+    
+    let pauseButtonImage = (#imageLiteral(resourceName: "pauseButton") as WrappedBundleImage).image
+    let playButtonImage = (#imageLiteral(resourceName: "playButton") as WrappedBundleImage).image
     
     //MARK:- IB Methods
     
@@ -105,7 +109,7 @@ public class PlayerDetailsView: UIView {
     {
         guard let duration = player.currentItem?.duration else { return }
         let artwork = MPMediaItemArtwork(boundsSize: trackImageView.image?.size ?? .zero) { (_) -> UIImage in
-            return self.trackImageView.image ?? #imageLiteral(resourceName: "podcast icon")
+            return self.trackImageView.image!
         }
         
         var nowPlayingInfo = [String: Any]()
@@ -126,10 +130,10 @@ public class PlayerDetailsView: UIView {
         
         //MARK: Play
         commandCenter.playCommand.isEnabled = true
-        commandCenter.playCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+        commandCenter.playCommand.addTarget {(_) -> MPRemoteCommandHandlerStatus in
             self.player.play()
-            self.playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-            self.minimizedPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            self.playPauseButton.setImage(self.pauseButtonImage, for: .normal)
+            self.minimizedPlayPauseButton.setImage(self.pauseButtonImage, for: .normal)
             MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 1
             return .success
         }
@@ -138,8 +142,8 @@ public class PlayerDetailsView: UIView {
         commandCenter.pauseCommand.isEnabled = true
         commandCenter.pauseCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
             self.player.pause()
-            self.playPauseButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
-            self.minimizedPlayPauseButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
+            self.playPauseButton.setImage(self.playButtonImage, for: .normal)
+            self.minimizedPlayPauseButton.setImage(self.playButtonImage, for: .normal)
             MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 0
             
             return .success
@@ -186,18 +190,21 @@ public class PlayerDetailsView: UIView {
     
     //MARK:- Utility Methods
     
-    public static func initFromNib() -> PlayerDetailsView
+    public static func initFromNib(with track: Track) -> PlayerDetailsView
     {
         let podBundle = Bundle(for: self.self)
         let nib = UINib(nibName: "PlayerDetailsView", bundle: podBundle)
-        return nib.instantiate(withOwner: nil, options: nil).first as! PlayerDetailsView
+        let player = nib.instantiate(withOwner: nil, options: nil).first as! PlayerDetailsView
+        player.track = track
+        player.podBundle = podBundle
+        return player
     }
     
     //MARK:- Logic
     
     fileprivate func loadArtwork() {
         guard let imageURL = track.imageURL else { return }
-        trackImageView.download(from: imageURL, contentMode: .scaleAspectFill, placeholder: #imageLiteral(resourceName: "placeholder"), completionHandler: nil)
+        trackImageView.download(from: imageURL, contentMode: .scaleAspectFill, placeholder: trackImageView.image!, completionHandler: nil)
     }
     
     @objc fileprivate func handleInterrutption(notification: Notification)
@@ -208,16 +215,16 @@ public class PlayerDetailsView: UIView {
         switch type
         {
         case .began:
-            minimizedPlayPauseButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
-            playPauseButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
+            minimizedPlayPauseButton.setImage(playButtonImage, for: .normal)
+            playPauseButton.setImage(playButtonImage, for: .normal)
         case .ended:
             guard let options = userInfo[AVAudioSessionInterruptionOptionKey] as? AVAudioSession.InterruptionOptions else { return }
             
             switch options
             {
             case .shouldResume:
-                minimizedPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-                playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+                minimizedPlayPauseButton.setImage(pauseButtonImage, for: .normal)
+                playPauseButton.setImage(pauseButtonImage, for: .normal)
                 player.play()
             default:
                 break
@@ -412,7 +419,7 @@ public class PlayerDetailsView: UIView {
     }
     
     //MARK:- IBActions
-
+    
     @IBAction func handleProgressChange(_ sender: Any)
     {
         let percentage = progressSlider.value
@@ -432,21 +439,21 @@ public class PlayerDetailsView: UIView {
         seekToCurrentTime(delta: -15)
     }
     
-    @IBAction func handlePlayPause(_ sender: Any)
+    @IBAction func handlePlayPause(_ sender: UIButton)
     {
         if player.timeControlStatus == .playing
         {
             player.pause()
-            playPauseButton.setImage(#imageLiteral(resourceName: "playButton"), for:  .normal)
-            minimizedPlayPauseButton.setImage(#imageLiteral(resourceName: "playButton"), for:  .normal)
+            playPauseButton.setImage(playButtonImage, for:  .normal)
+            minimizedPlayPauseButton.setImage(playButtonImage, for:  .normal)
             scaleImageDown()
             setupElapsedTime(playBackRate: 1)
         }
-        else
+        else if player.timeControlStatus == .paused
         {
             player.play()
-            playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for:  .normal)
-            minimizedPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for:  .normal)
+            playPauseButton.setImage(pauseButtonImage, for:  .normal)
+            minimizedPlayPauseButton.setImage(pauseButtonImage, for:  .normal)
             scaleImageUp()
             setupElapsedTime(playBackRate: 0)
         }
@@ -527,5 +534,14 @@ extension PlayerDetailsView {
             self.maximizedPlayerStackView.alpha = 1
             self.minimizedPlayerView.alpha = 0
         })
+    }
+}
+
+struct WrappedBundleImage: _ExpressibleByImageLiteral {
+    let image: UIImage?
+    
+    init(imageLiteralResourceName name: String) {
+        let bundle = Bundle(for: PlayerDetailsView.self)
+        image = UIImage(named: name, in: bundle, compatibleWith: nil)
     }
 }

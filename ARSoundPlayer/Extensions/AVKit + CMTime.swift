@@ -2,8 +2,8 @@
 //  AVKit + CMTime.swift
 //  PodcastApp
 //
-//  Created by ScaRiLiX on 9/24/18.
-//  Copyright © 2018 ScaRiLiX. All rights reserved.
+//  Created by Ahmed Ramy on 9/24/18.
+//  Copyright © 2018 Ahmed Ramy. All rights reserved.
 //
 
 import AVKit
