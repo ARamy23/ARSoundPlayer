@@ -17,37 +17,38 @@ public class PlayerDetailsView: UIView {
     //MARK:- Maximized Player IBOutlets
     
     @IBOutlet weak var maximizedPlayerStackView: UIStackView!
-    @IBOutlet weak var episodeImageView: UIImageView!
+    @IBOutlet weak var trackImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var progressSlider: UISlider!
-    @IBOutlet weak var episodeDurationLabel: UILabel!
-    @IBOutlet weak var episodeCurrentTimeLabel: UILabel!
+    @IBOutlet weak var trackDurationLabel: UILabel!
+    @IBOutlet weak var trackCurrentDurationLabel: UILabel!
     @IBOutlet weak var volumeSlider: UISlider!
     
     //MARK:- Minimized Player IBOutlets
     
     @IBOutlet weak var minimizedPlayerView: UIView!
-    @IBOutlet weak var minimizedEpisodeImageView: UIImageView!
+    @IBOutlet weak var minimizedTrackImageView: UIImageView!
     @IBOutlet weak var minimziedTitleLabel: UILabel!
     @IBOutlet weak var minimizedPlayPauseButton: UIButton!
     
     //MARK:- Helping Vars
     
-    var episode: Episode! {
+    var track: Track! {
         didSet
         {
-            titleLabel.text = episode.title
-            authorLabel.text = episode.author
-            minimziedTitleLabel.text = episode.title
+            titleLabel.text = track.title
+            artistNameLabel.text = track.artistName
+            minimziedTitleLabel.text = track.title
             setupNowPlayingInfo()
             setupAudioSession()
-            playEpisode()
+            playTrack()
+            loadArtwork()
         }
     }
     
-    var podcastEpisodes: [Episode]!
+    var playlist: [Track]?
     
     var player: AVPlayer =
     {
@@ -68,11 +69,10 @@ public class PlayerDetailsView: UIView {
     
     //MARK:- IB Methods
     
-    
     override public func awakeFromNib() {
         super.awakeFromNib()
         observePlayerCurrentTime()
-        observeStartingOfEpisode()
+        observeStartingOfTrack()
         setupInterrubtionsObserver()
         setupUI()
     }
@@ -104,16 +104,16 @@ public class PlayerDetailsView: UIView {
     fileprivate func setupNowPlayingInfo()
     {
         guard let duration = player.currentItem?.duration else { return }
-        let artwork = MPMediaItemArtwork(boundsSize: episodeImageView.image?.size ?? .zero) { (_) -> UIImage in
-            return self.episodeImageView.image ?? #imageLiteral(resourceName: "podcast icon")
+        let artwork = MPMediaItemArtwork(boundsSize: trackImageView.image?.size ?? .zero) { (_) -> UIImage in
+            return self.trackImageView.image ?? #imageLiteral(resourceName: "podcast icon")
         }
         
         var nowPlayingInfo = [String: Any]()
         
-        nowPlayingInfo[MPMediaItemPropertyTitle] = episode.title
-        nowPlayingInfo[MPMediaItemPropertyArtist] = episode.author
+        nowPlayingInfo[MPMediaItemPropertyTitle] = track.title
+        nowPlayingInfo[MPMediaItemPropertyArtist] = track.artistName
         nowPlayingInfo[MPMediaItemPropertyArtwork] = artwork
-        nowPlayingInfo[MPMediaItemPropertyArtist] = episode.author
+        nowPlayingInfo[MPMediaItemPropertyArtist] = track.artistName
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = CMTimeGetSeconds(duration)
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = CMTimeGetSeconds(player.currentTime())
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
@@ -154,12 +154,12 @@ public class PlayerDetailsView: UIView {
             return .success
         }
         
-        //MARK: Next Episode
+        //MARK: Next Track
         commandCenter.nextTrackCommand.isEnabled = true
-        commandCenter.nextTrackCommand.addTarget(self, action: #selector(handleNextEpisodeCommand))
-        //MARK: Previous Episode
+        commandCenter.nextTrackCommand.addTarget(self, action: #selector(handleNextTrackCommand))
+        //MARK: Previous Track
         commandCenter.previousTrackCommand.isEnabled = true
-        commandCenter.previousTrackCommand.addTarget(self, action: #selector(handlePreviousEpisodeCommand))
+        commandCenter.previousTrackCommand.addTarget(self, action: #selector(handlePreviousTrackCommand))
         
     }
     
@@ -180,18 +180,25 @@ public class PlayerDetailsView: UIView {
     fileprivate func setupUI()
     {
         progressSlider.value = 0
-        episodeImageView.transform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
+        trackImageView.transform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
         setupGestures()
     }
     
     //MARK:- Utility Methods
     
-    static func initFromNib() -> PlayerDetailsView
+    public static func initFromNib() -> PlayerDetailsView
     {
-        return Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
+        let podBundle = Bundle(for: self.self)
+        let nib = UINib(nibName: "PlayerDetailsView", bundle: podBundle)
+        return nib.instantiate(withOwner: nil, options: nil).first as! PlayerDetailsView
     }
     
     //MARK:- Logic
+    
+    fileprivate func loadArtwork() {
+        guard let imageURL = track.imageURL else { return }
+        trackImageView.download(from: imageURL, contentMode: .scaleAspectFill, placeholder: #imageLiteral(resourceName: "placeholder"), completionHandler: nil)
+    }
     
     @objc fileprivate func handleInterrutption(notification: Notification)
     {
@@ -218,27 +225,27 @@ public class PlayerDetailsView: UIView {
         }
     }
     
-    @objc fileprivate func handlePreviousEpisodeCommand()
+    @objc fileprivate func handlePreviousTrackCommand()
     {
-        if podcastEpisodes.count <= 1 { return }
+        guard let playlist = playlist, playlist.count > 1 else { return }
         
-        if let currentEpisodeIndex = podcastEpisodes.index(where: { $0.title == self.episode.title })
+        if let currentTrackIndex = playlist.index(where: { $0.title == self.track.title })
         {
-            let previousEpisodeIndex = (currentEpisodeIndex == podcastEpisodes.count - 1) ? podcastEpisodes.count - 1 : currentEpisodeIndex - 1
-            let previousEpisode = podcastEpisodes[previousEpisodeIndex]
-            self.episode = previousEpisode
+            let previousTrackIndex = (currentTrackIndex == playlist.count - 1) ? playlist.count - 1 : currentTrackIndex - 1
+            let previousTrack = playlist[previousTrackIndex]
+            self.track = previousTrack
         }
     }
     
-    @objc fileprivate func handleNextEpisodeCommand()
+    @objc fileprivate func handleNextTrackCommand()
     {
-        if podcastEpisodes.count <= 1 { return }
+        guard let playlist = playlist, playlist.count <= 1 else { return }
         
-        if let currentEpisodeIndex = podcastEpisodes.index(where: { $0.title == self.episode.title })
+        if let currentTrackIndex = playlist.index(where: { $0.title == self.track.title })
         {
-            let nextEpisodeIndex = (currentEpisodeIndex == podcastEpisodes.count - 1) ? 0 : currentEpisodeIndex + 1
-            let nextEpisode = podcastEpisodes[nextEpisodeIndex]
-            self.episode = nextEpisode
+            let nextTrackIndex = (currentTrackIndex == playlist.count - 1) ? 0 : currentTrackIndex + 1
+            let nextTrack = playlist[nextTrackIndex]
+            self.track = nextTrack
         }
     }
     
@@ -249,7 +256,7 @@ public class PlayerDetailsView: UIView {
         maximizedPlayerStackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
     }
     
-    fileprivate func observeStartingOfEpisode() {
+    fileprivate func observeStartingOfTrack() {
         let time = CMTimeMake(value: 1, timescale: 3)
         let times = [NSValue(time: time)]
         player.addBoundaryTimeObserver(forTimes: times, queue: .main) {
@@ -266,9 +273,9 @@ public class PlayerDetailsView: UIView {
         
         player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
             
-            self?.episodeCurrentTimeLabel.text = time.toDisplayString()
+            self?.trackCurrentDurationLabel.text = time.toDisplayString()
             let durationTime = self?.player.currentItem?.duration
-            self?.episodeDurationLabel.text = durationTime?.toDisplayString()
+            self?.trackDurationLabel.text = durationTime?.toDisplayString()
             
             self?.updateSliderProgress()
         }
@@ -283,13 +290,13 @@ public class PlayerDetailsView: UIView {
         progressSlider.value = percentage.float
     }
     
-    fileprivate func playEpisode()
+    fileprivate func playTrack()
     {
-        if let fileURL = episode.fileURL
+        if let fileURL = track.fileURL
         {
-            playEpisodeLocally(from: fileURL)
+            playTrackLocally(from: fileURL)
         }
-        else if let streamURL = episode.streamURL
+        else if let streamURL = track.streamURL
         {
             let playerItem = AVPlayerItem(url: streamURL)
             player.replaceCurrentItem(with: playerItem)
@@ -301,7 +308,7 @@ public class PlayerDetailsView: UIView {
         }
     }
     
-    fileprivate func playEpisodeLocally(from fileURL: URL )
+    fileprivate func playTrackLocally(from fileURL: URL )
     {
         guard var localFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let fileName = fileURL.lastPathComponent
@@ -313,19 +320,19 @@ public class PlayerDetailsView: UIView {
     
     fileprivate func scaleImageUp()
     {
-        episodeImageView.transform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
+        trackImageView.transform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
         
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.episodeImageView.transform = .identity
+            self.trackImageView.transform = .identity
         })
     }
     
     fileprivate func scaleImageDown()
     {
-        episodeImageView.transform =  CGAffineTransform(scaleX: 1, y: 1)
+        trackImageView.transform =  CGAffineTransform(scaleX: 1, y: 1)
         
         UIView.animate(withDuration: 0.5) {
-            self.episodeImageView.transform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
+            self.trackImageView.transform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
         }
     }
     

@@ -15,10 +15,9 @@
 		E2A3FAE121B5909900EF9B91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A3FAD321B5909800EF9B91 /* Assets.xcassets */; };
 		E2A3FAE221B5909900EF9B91 /* PlayerDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2A3FAD521B5909800EF9B91 /* PlayerDetailsView.xib */; };
 		E2A3FAE321B5909900EF9B91 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAD621B5909800EF9B91 /* PlayerDetailsView.swift */; };
-		E2A3FAE421B5909900EF9B91 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAD821B5909800EF9B91 /* Podcast.swift */; };
-		E2A3FAE521B5909900EF9B91 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FAD921B5909800EF9B91 /* Episode.swift */; };
 		E2A3FAE721B5909900EF9B91 /* AVKit + CMTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FADC21B5909900EF9B91 /* AVKit + CMTime.swift */; };
 		E2A3FAED21B594C800EF9B91 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E2A3FAEC21B594C800EF9B91 /* LICENSE */; };
+		E2A3FB2B21B5ABB000EF9B91 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3FB2A21B5ABB000EF9B91 /* Track.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,10 +46,9 @@
 		E2A3FAD321B5909800EF9B91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2A3FAD521B5909800EF9B91 /* PlayerDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerDetailsView.xib; sourceTree = "<group>"; };
 		E2A3FAD621B5909800EF9B91 /* PlayerDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
-		E2A3FAD821B5909800EF9B91 /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
-		E2A3FAD921B5909800EF9B91 /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		E2A3FADC21B5909900EF9B91 /* AVKit + CMTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVKit + CMTime.swift"; sourceTree = "<group>"; };
 		E2A3FAEC21B594C800EF9B91 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E2A3FB2A21B5ABB000EF9B91 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +147,7 @@
 		E2A3FAD721B5909800EF9B91 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E2A3FAD821B5909800EF9B91 /* Podcast.swift */,
-				E2A3FAD921B5909800EF9B91 /* Episode.swift */,
+				E2A3FB2A21B5ABB000EF9B91 /* Track.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,8 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2A3FAE421B5909900EF9B91 /* Podcast.swift in Sources */,
-				E2A3FAE521B5909900EF9B91 /* Episode.swift in Sources */,
+				E2A3FB2B21B5ABB000EF9B91 /* Track.swift in Sources */,
 				E2A3FAE721B5909900EF9B91 /* AVKit + CMTime.swift in Sources */,
 				E2A3FAE321B5909900EF9B91 /* PlayerDetailsView.swift in Sources */,
 			);

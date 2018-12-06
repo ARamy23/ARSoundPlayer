@@ -29,7 +29,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4U4-KR-18L">
                             <rect key="frame" x="8" y="8" width="359" height="48"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="podcast icon" translatesAutoresizingMaskIntoConstraints="NO" id="pQ3-aq-GNE">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="pQ3-aq-GNE">
                                     <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="48" id="pXY-LZ-syS"/>
@@ -117,7 +117,7 @@
                                 <action selector="handleDismiss:" destination="nfV-IB-wEv" eventType="touchUpInside" id="UAx-cj-UPg"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="podcast icon" translatesAutoresizingMaskIntoConstraints="NO" id="vDa-Hz-gyL">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="vDa-Hz-gyL">
                             <rect key="frame" x="0.0" y="44" width="327" height="327"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="vDa-Hz-gyL" secondAttribute="height" id="hzQ-51-BWc"/>
@@ -250,18 +250,18 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="TjL-fv-tLc"/>
             <connections>
-                <outlet property="authorLabel" destination="0hH-9q-cba" id="3kX-5U-aoK"/>
-                <outlet property="episodeCurrentTimeLabel" destination="g6h-9E-RdO" id="tUG-fn-yHt"/>
-                <outlet property="episodeDurationLabel" destination="pyK-Wm-mfU" id="oXP-05-PD9"/>
-                <outlet property="episodeImageView" destination="vDa-Hz-gyL" id="flu-NV-mQL"/>
+                <outlet property="artistNameLabel" destination="0hH-9q-cba" id="3kX-5U-aoK"/>
                 <outlet property="maximizedPlayerStackView" destination="ORs-no-7fU" id="mI5-C4-71r"/>
-                <outlet property="minimizedEpisodeImageView" destination="pQ3-aq-GNE" id="wtX-9L-YcX"/>
                 <outlet property="minimizedPlayPauseButton" destination="HI6-uk-glQ" id="QNJ-27-ffg"/>
                 <outlet property="minimizedPlayerView" destination="qtc-6N-9EQ" id="UTx-EZ-Oj7"/>
+                <outlet property="minimizedTrackImageView" destination="pQ3-aq-GNE" id="wtX-9L-YcX"/>
                 <outlet property="minimziedTitleLabel" destination="Iqf-pe-ltv" id="SgV-Mk-Feb"/>
                 <outlet property="playPauseButton" destination="hmn-CA-Emk" id="zc3-oL-bd0"/>
                 <outlet property="progressSlider" destination="WNd-H6-GLr" id="K4m-5s-DAe"/>
                 <outlet property="titleLabel" destination="jNX-gF-jaI" id="GHV-Db-eZh"/>
+                <outlet property="trackCurrentDurationLabel" destination="g6h-9E-RdO" id="tUG-fn-yHt"/>
+                <outlet property="trackDurationLabel" destination="pyK-Wm-mfU" id="oXP-05-PD9"/>
+                <outlet property="trackImageView" destination="vDa-Hz-gyL" id="flu-NV-mQL"/>
                 <outlet property="volumeSlider" destination="uLz-j1-8Bt" id="DgX-pL-S5N"/>
             </connections>
             <point key="canvasLocation" x="-196" y="143"/>
@@ -272,7 +272,7 @@
         <image name="max_volume" width="32.5" height="32.5"/>
         <image name="muted_volume" width="32.5" height="32.5"/>
         <image name="pause" width="57" height="57"/>
-        <image name="podcast icon" width="512" height="512"/>
+        <image name="placeholder" width="800" height="800"/>
         <image name="rewind15" width="45.5" height="45.5"/>
     </resources>
 </document>
