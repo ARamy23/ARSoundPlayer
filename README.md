@@ -1,10 +1,10 @@
 # ARSoundPlayer
 A Simple Audio Player
 
-#Demo
+# Demo
 To be uploaded
 
-#Usage
+# Usage
 
 1. We first create our track
   we can use a track over the internet and stream it using the streamURL
@@ -35,8 +35,8 @@ let track = Track(title: trackTitle,
       
 ```
 
-then we setup our PlayerView in our VC over whatever view, 
-I'm using a TabBarController in this example so am setting it above the tabBar
+2. then we setup our PlayerView in our VC over whatever view, 
+  *I'm using a TabBarController in this example so am setting it above the tabBar*
 ```swift
 Import ARSoundPlayer
 
