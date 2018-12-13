@@ -35,7 +35,9 @@ let track = Track(title: trackTitle,
       
 ```
 
-2. then we setup our PlayerView in our VC over whatever view, 
+2. then we setup our PlayerView in our VC over whatever view,
+
+
   *I'm using a TabBarController in this example so am setting it above the tabBar*
 ```swift
 Import ARSoundPlayer
@@ -60,4 +62,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/ARamy23/ARSoundPlayerPodSpecs'
 ```
 and then
-`pod 'ARSoundPlayer', '~> 0.1.4'
+
+
+`pod 'ARSoundPlayer', '~> 0.1.4'`
