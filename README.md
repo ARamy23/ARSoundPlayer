@@ -52,3 +52,12 @@ then launching/minimzing the player is as easy as...
 playerDetailsView.maximizePlayerDetails()
 playerDetailsView.minimizePlayerDetails()
 ```
+
+# Installation 
+put these 2 lines at the top of your podfile
+```
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/ARamy23/ARSoundPlayerPodSpecs'
+```
+and then
+`pod 'ARSoundPlayer', '~> 0.1.4'
